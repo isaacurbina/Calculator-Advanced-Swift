@@ -14,7 +14,9 @@ class ViewController: UIViewController {
 	
 	@IBOutlet weak var displayLabel: UILabel!
 	
-	var isFinishedTypingNumber = true
+	// MARK: - Variables/Constants
+	
+	private var isFinishedTypingNumber = true
 	
 	// MARK: - IBActions
 	
