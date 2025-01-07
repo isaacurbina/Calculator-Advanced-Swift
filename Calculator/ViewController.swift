@@ -17,20 +17,28 @@ class ViewController: UIViewController {
 	// MARK: - Variables/Constants
 	
 	private var isFinishedTypingNumber = true
+	private var displayValue: Double {
+		get {
+			guard let currentDisplayValue = Double(displayLabel.text!) else {
+				fatalError("Cannot convert display label text to a Dobule!")
+			}
+			return currentDisplayValue
+		}
+		set {
+			displayLabel.text = String(newValue)
+		}
+	}
 	
 	// MARK: - IBActions
 	
 	@IBAction func calcButtonPressed(_ sender: UIButton) {
 		isFinishedTypingNumber = true
-		guard let number = Double(displayLabel.text!) else {
-			fatalError("Cannot convert display label text to a Double.")
-		}
 		
 		if let calcMethod = sender.currentTitle {
 			switch calcMethod {
-			case "+/-" : displayLabel.text = String(number * -1)
-			case "AC" : displayLabel.text = "0"
-			case "%" : displayLabel.text = String(number / 100)
+			case "+/-" : displayValue *= -1
+			case "AC" : displayValue = 0
+			case "%" : displayValue *= 0.01
 			default:
 				print("not implemented yet")
 			}
@@ -47,10 +55,7 @@ class ViewController: UIViewController {
 				
 			} else {
 				if numValue == "." {
-					guard let currentDisplayValue = Double(displayLabel.text!) else {
-						fatalError("Cannot convert display label text to a Dobule!")
-					}
-					let isInt = floor(currentDisplayValue) == currentDisplayValue
+					let isInt = floor(displayValue) == displayValue
 					if !isInt {
 						return
 					}
