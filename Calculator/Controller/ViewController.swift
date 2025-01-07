@@ -35,13 +35,11 @@ class ViewController: UIViewController {
 		isFinishedTypingNumber = true
 		
 		if let calcMethod = sender.currentTitle {
-			switch calcMethod {
-			case "+/-" : displayValue *= -1
-			case "AC" : displayValue = 0
-			case "%" : displayValue *= 0.01
-			default:
-				print("not implemented yet")
+			let calculator = CalculatorLogic(number: displayValue)
+			guard let result = calculator.calculate(symbol: calcMethod) else {
+				fatalError("The result of the calculation is nil")
 			}
+			displayValue = result
 		}
 	}
 	
