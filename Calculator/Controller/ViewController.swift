@@ -16,6 +16,7 @@ class ViewController: UIViewController {
 	
 	// MARK: - Variables/Constants
 	
+	private var calculator = CalculatorLogic()
 	private var isFinishedTypingNumber = true
 	private var displayValue: Double {
 		get {
@@ -33,9 +34,9 @@ class ViewController: UIViewController {
 	
 	@IBAction func calcButtonPressed(_ sender: UIButton) {
 		isFinishedTypingNumber = true
+		calculator.setNumber(displayValue)
 		
 		if let calcMethod = sender.currentTitle {
-			let calculator = CalculatorLogic(number: displayValue)
 			guard let result = calculator.calculate(symbol: calcMethod) else {
 				fatalError("The result of the calculation is nil")
 			}
@@ -45,7 +46,6 @@ class ViewController: UIViewController {
 	
 	
 	@IBAction func numButtonPressed(_ sender: UIButton) {
-		//What should happen when a number is entered into the keypad
 		if let numValue = sender.currentTitle {
 			if isFinishedTypingNumber {
 				displayLabel.text = numValue
